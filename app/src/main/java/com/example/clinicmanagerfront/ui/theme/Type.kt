@@ -7,6 +7,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
+
+val StatsTextStyle = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    color = Card
+)
+
+val ActionTextStyle = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    color = MutedForeground,
+    fontSize = 10.5.sp
+)
+
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
