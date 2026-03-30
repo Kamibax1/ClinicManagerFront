@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ClinicManagerFront</string>
+    <string name="search_patient">Поиск пациентов</string>
+    <string name="welcome">Добро пожаловать</string>
+    <string name="today_day">Сегодняшний день</string>
+    <string name="patients">Пациенты</string>
+    <string name="appointment_today">Записи сегодня</string>
+    <string name="doctors">Врачи</string>
+    <string name="completed">Завершено</string>
+    <string name="fast_actions">Быстрые действия</string>
+    <string name="appointment">Запись</string>
+    <string name="patient">Пациент</string>
+    <string name="report">Отчет</string>
+    <string name="graph">График</string>
 </resources>
