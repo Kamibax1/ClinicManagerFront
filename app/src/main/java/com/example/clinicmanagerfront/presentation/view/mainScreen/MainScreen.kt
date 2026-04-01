@@ -3,13 +3,13 @@ package com.example.clinicmanagerfront.presentation.view.mainScreen
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,11 +22,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.clinicmanagerfront.R
 import com.example.clinicmanagerfront.presentation.view.common.Header
+import com.example.clinicmanagerfront.presentation.view.mainScreen.uiState.MainUiState
 import com.example.clinicmanagerfront.ui.theme.*
 
 data class StatsCard(
@@ -44,7 +45,11 @@ data class ActionCard(
 )
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+) {
+    val viewModel: MainViewModel = hiltViewModel()
+    val uiState by viewModel.uiState.collectAsState()
+
     Column{
         Header()
         Column(
@@ -56,7 +61,7 @@ fun MainScreen() {
             SearchPatient()
             WelcomeCard()
             Spacer(modifier = Modifier.size(21.dp))
-            BlockStatsCards()
+            BlockStatsCards(uiState)
             Spacer(modifier = Modifier.size(21.dp))
             Text(stringResource(id = R.string.fast_actions))
             Spacer(modifier = Modifier.size(14.dp))
@@ -154,12 +159,14 @@ fun WelcomeCard(){
 }
 
 @Composable
-fun BlockStatsCards(){
+fun BlockStatsCards(
+    uiState: MainUiState
+){
     val statsCards = listOf(
-        StatsCard(stringResource(id = R.string.patients), 0, Chart2, Icons.Outlined.Schedule),
-        StatsCard(stringResource(id = R.string.appointment_today), 0, Chart1, Icons.Filled.CalendarMonth),
-        StatsCard(stringResource(id = R.string.doctors), 0, Chart3, Icons.Outlined.Info),
-        StatsCard(stringResource(id = R.string.completed), 0, Chart4, Icons.Outlined.CheckCircle)
+        StatsCard(stringResource(id = R.string.patients), uiState.patientCount, Chart2, Icons.Outlined.Schedule),
+        StatsCard(stringResource(id = R.string.appointment_today), uiState.appointmentCount, Chart1, Icons.Filled.CalendarMonth),
+        StatsCard(stringResource(id = R.string.doctors), uiState.doctorsCount, Chart3, Icons.Outlined.Info),
+        StatsCard(stringResource(id = R.string.completed), uiState.completedCount, Chart4, Icons.Outlined.CheckCircle)
     )
 
     Column(
