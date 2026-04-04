@@ -1,12 +1,12 @@
 package com.example.clinicmanagerfront.navigation
 
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.clinicmanagerfront.presentation.view.mainScreen.MainScreen
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.AppointmentsScreen
+import com.example.clinicmanagerfront.presentation.view.homeScreen.HomeScreen
+import com.example.clinicmanagerfront.presentation.view.profileScreen.ProfileScreen
 
 @Composable
 fun Navigation(
@@ -17,7 +17,13 @@ fun Navigation(
         startDestination = Screen.Main.route
     ) {
         composable(Screen.Main.route){
-            MainScreen()
+            HomeScreen(navController)
+        }
+        composable(Screen.Appointments.route) {
+            AppointmentsScreen(navController)
+        }
+        composable(Screen.Profile.route) {
+            ProfileScreen(navController)
         }
     }
 }

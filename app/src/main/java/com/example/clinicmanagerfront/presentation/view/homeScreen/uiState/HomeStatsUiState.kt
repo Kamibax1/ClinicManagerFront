@@ -1,6 +1,6 @@
-package com.example.clinicmanagerfront.presentation.view.mainScreen.uiState
+package com.example.clinicmanagerfront.presentation.view.homeScreen.uiState
 
-data class MainUiState (
+data class HomeStatsUiState (
     val messageResponse: String = "",
     val patientCount: Int = 0,
     val appointmentCount: Int = 0,

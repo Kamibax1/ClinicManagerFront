@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
 import com.example.clinicmanagerfront.navigation.Navigation
+import com.example.clinicmanagerfront.presentation.view.MainScreen
 import com.example.clinicmanagerfront.ui.theme.ClinicManagerFrontTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,8 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ClinicManagerFrontTheme {
-                val navController = rememberNavController()
-                Navigation(navController)
+                MainScreen()
             }
         }
     }

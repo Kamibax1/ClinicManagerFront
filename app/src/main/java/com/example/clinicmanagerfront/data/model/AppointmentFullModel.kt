@@ -3,8 +3,8 @@ package com.example.clinicmanagerfront.data.model
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
-data class AppointmentModel (
-    @SerializedName("id_appointment")
+data class AppointmentFullModel(
+    @SerializedName("id_appointment_full")
     val id: Long,
 
     @SerializedName("date_time")
@@ -13,12 +13,12 @@ data class AppointmentModel (
     @SerializedName("symptoms")
     val symptoms: String,
 
-    @SerializedName("id_status")
-    val idStatus: Long,
+    @SerializedName("status")
+    val status: StatusModel,
 
-    @SerializedName("id_patient")
-    val idPatient: Long,
+    @SerializedName("patient")
+    val patient: PatientModel,
 
-    @SerializedName("id_doctor")
-    val idDoctor: Long
+    @SerializedName("doctor")
+    val doctor: DoctorModel
 )

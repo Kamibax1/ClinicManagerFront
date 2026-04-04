@@ -11,7 +11,7 @@ data class PatientModel (
     val fullName: String,
 
     @SerializedName("date_of_birth")
-    val dateOfBirth: LocalDate,
+    val dateOfBirth: String,
 
     @SerializedName("gender")
     val gender: String,
@@ -20,5 +20,5 @@ data class PatientModel (
     val phoneNumber: String,
 
     @SerializedName("email")
-    val email: String? = null
+    val email: String
 )

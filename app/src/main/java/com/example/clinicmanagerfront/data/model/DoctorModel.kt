@@ -3,7 +3,7 @@ package com.example.clinicmanagerfront.data.model
 import com.google.gson.annotations.SerializedName
 
 data class DoctorModel (
-    @SerializedName("id_Doctor")
+    @SerializedName("id_doctor")
     val id: Long,
 
     @SerializedName("first_name")
