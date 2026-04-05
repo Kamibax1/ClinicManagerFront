@@ -9,13 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.clinicmanagerfront.ui.theme.*
 
-@Preview
 @Composable
-fun Header(){
+fun Header(title: String){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -25,10 +23,10 @@ fun Header(){
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Clinic Manager",
+            text = title,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.ExtraBold,
-            color = SecondaryForeground
+            color = BlueText
         )
         Box(
             modifier = Modifier.size(50.dp),
@@ -39,7 +37,7 @@ fun Header(){
             }
             Text(
                 text = "DA",
-                color = SecondaryForeground
+                color = BlueText
             )
         }
     }

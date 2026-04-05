@@ -15,8 +15,14 @@ val StatsTextStyle = TextStyle(
 
 val ActionTextStyle = TextStyle(
     fontFamily = FontFamily.SansSerif,
-    color = MutedForeground,
+    color = Gray400,
     fontSize = 10.5.sp
+)
+
+val InformationCardTextStyle = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    color = Gray600,
+    fontSize = 14.sp
 )
 
 val Typography = Typography(

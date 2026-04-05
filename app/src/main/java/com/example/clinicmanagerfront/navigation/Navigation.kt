@@ -4,16 +4,30 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.clinicmanagerfront.presentation.view.mainScreen.MainScreen
+import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.AppointmentsScreen
+import com.example.clinicmanagerfront.presentation.view.homeScreen.HomeScreen
+import com.example.clinicmanagerfront.presentation.view.patientsScreen.PatientsScreen
+import com.example.clinicmanagerfront.presentation.view.profileScreen.ProfileScreen
 
 @Composable
-fun Navigation(navController: NavHostController){
+fun Navigation(
+    navController: NavHostController,
+){
     NavHost(
         navController = navController,
         startDestination = Screen.Main.route
     ) {
         composable(Screen.Main.route){
-            MainScreen()
+            HomeScreen(navController)
+        }
+        composable(Screen.Appointments.route) {
+            AppointmentsScreen(navController)
+        }
+        composable(Screen.Profile.route) {
+            ProfileScreen(navController)
+        }
+        composable(Screen.Patients.route) {
+            PatientsScreen()
         }
     }
 }
