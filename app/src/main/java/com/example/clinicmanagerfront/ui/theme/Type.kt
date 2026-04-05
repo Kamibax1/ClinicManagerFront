@@ -19,6 +19,12 @@ val ActionTextStyle = TextStyle(
     fontSize = 10.5.sp
 )
 
+val InformationCardTextStyle = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    color = Gray600,
+    fontSize = 14.sp
+)
+
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,

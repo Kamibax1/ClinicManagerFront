@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -37,9 +38,9 @@ fun AppointmentCard(dataCard: AppointmentDataCard) {
                 verticalAlignment = Alignment.CenterVertically
             ){
                 Icon(
-                    imageVector = dataCard.iconDate,
+                    imageVector = Icons.Outlined.CalendarToday,
                     contentDescription = null,
-                    tint = dataCard.iconDateColor,
+                    tint = BlueText,
                     modifier = Modifier.size(16.dp),
                 )
 
@@ -57,9 +58,9 @@ fun AppointmentCard(dataCard: AppointmentDataCard) {
                 verticalAlignment = Alignment.CenterVertically,
             ){
                 Icon(
-                    imageVector = dataCard.iconTime,
+                    imageVector = Icons.Outlined.AccessTime,
                     contentDescription = null,
-                    tint = dataCard.iconTimeColor,
+                    tint = Gray400,
                     modifier = Modifier.size(16.dp)
                 )
 
@@ -85,9 +86,9 @@ fun AppointmentCard(dataCard: AppointmentDataCard) {
                     drawCircle(color = Person)
                 }
                 Icon(
-                    imageVector = dataCard.iconPerson,
+                    imageVector = Icons.Outlined.PersonOutline,
                     contentDescription = null,
-                    tint = dataCard.iconPersonColor,
+                    tint = Card,
                     modifier = Modifier.size(20.dp)
                 )
             }

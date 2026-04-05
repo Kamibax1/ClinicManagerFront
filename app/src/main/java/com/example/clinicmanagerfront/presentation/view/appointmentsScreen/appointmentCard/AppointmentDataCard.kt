@@ -15,13 +15,7 @@ import com.example.clinicmanagerfront.ui.theme.Gray400
 
 data class AppointmentDataCard(
     val date: String,
-    val iconDate: ImageVector = Icons.Outlined.CalendarToday,
-    val iconDateColor: Color = BlueText,
     val time: String,
-    val iconTime: ImageVector = Icons.Outlined.AccessTime,
-    val iconTimeColor: Color = Gray400,
-    val iconPerson: ImageVector = Icons.Outlined.PersonOutline,
-    val iconPersonColor: Color = Card,
     val patient: PatientModel,
     val doctor: DoctorModel,
     val doctorSpecialization: String,

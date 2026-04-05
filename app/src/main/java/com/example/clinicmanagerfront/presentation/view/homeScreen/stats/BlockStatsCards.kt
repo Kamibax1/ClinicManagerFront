@@ -8,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.clinicmanagerfront.R
-import com.example.clinicmanagerfront.presentation.view.homeScreen.uiState.HomeStatsUiState
+import com.example.clinicmanagerfront.presentation.view.homeScreen.uiState.HomeUiState
 import com.example.clinicmanagerfront.ui.theme.*
 
 @Composable
 fun BlockStatsCards(
-    uiState: HomeStatsUiState
+    uiState: HomeUiState
 ){
     val statsCards = listOf(
         StatsCard(stringResource(id = R.string.patients), uiState.patientCount, Chart2, Icons.Outlined.Schedule),

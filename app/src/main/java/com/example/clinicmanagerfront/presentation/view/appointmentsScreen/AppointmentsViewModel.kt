@@ -42,7 +42,7 @@ class AppointmentsViewModel @Inject constructor(
                     mapToCard(fullDto)
                 }
 
-                _uiState.update { it.copy(cards = cards.toMutableList(), isLoading = false) }
+                _uiState.update { it.copy(cards = cards, isLoading = false) }
             } catch (e: Exception) {
                 _uiState.update { it.copy(isLoading = false, error = e.message) }
             }
@@ -58,9 +58,7 @@ class AppointmentsViewModel @Inject constructor(
         val date = Date.from(dateTime.atZone(java.time.ZoneId.systemDefault()).toInstant())
 
         val statusText = appointment.status.status.ru
-        val patient = appointment.patient
         val doctor = appointment.doctor
-        val doctorSpecialization = doctor.specialization.joinToString(", ")
 
         val (iconStatus, iconStatusColor, statusColor) = if (statusText == "Завершено") {
             Triple(Icons.Outlined.CheckCircle, Green700, Green50)
@@ -71,9 +69,9 @@ class AppointmentsViewModel @Inject constructor(
         return AppointmentDataCard(
             date = SimpleDateFormat("d MMMM", Locale.forLanguageTag("ru")).format(date),
             time = SimpleDateFormat("HH:mm", Locale.getDefault()).format(date),
-            patient = patient,
+            patient = appointment.patient,
             doctor = doctor,
-            doctorSpecialization = doctorSpecialization,
+            doctorSpecialization = doctor.specialization.joinToString(", "),
             status = statusText,
             iconStatus = iconStatus,
             iconStatusColor = iconStatusColor,

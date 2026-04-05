@@ -9,8 +9,6 @@
     <string name="completed">Завершено</string>
     <string name="fast_actions">Быстрые действия</string>
     <string name="appointment">Запись</string>
-    <string name="patient">Пациент</string>
-    <string name="report">Отчет</string>
     <string name="graph">График</string>
     <string name="appointment_title_screen">Записи</string>
 </resources>

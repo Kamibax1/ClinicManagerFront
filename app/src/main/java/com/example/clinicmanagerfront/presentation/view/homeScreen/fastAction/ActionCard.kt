@@ -7,5 +7,6 @@ data class ActionCard(
     val title: String,
     val iconColor: Color,
     val iconBackgroundColor: Color,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val onClick: () -> Unit
 )
