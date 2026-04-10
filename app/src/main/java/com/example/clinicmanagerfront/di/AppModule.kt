@@ -19,7 +19,7 @@ object AppModule {
     //10.185.232.79
     //10.143.192.15
     //192.168.0.145
-    private const val BASE_URL = "http://192.168.0.145:8081/api/"
+    private const val BASE_URL = "http://10.143.192.15:8081/api/"
 
     @Provides
     @Singleton

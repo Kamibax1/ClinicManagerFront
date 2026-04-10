@@ -67,25 +67,31 @@ class PatientsViewModel @Inject constructor(
     }
 
     fun searchPatients(partFullName: String) {
+        searchJob?.cancel()
+
         if (partFullName.isBlank()) {
-            _uiState.value = _uiState.value.copy(patients = emptyList())
+            loadPatients()
             return
         }
 
-        searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500)
-            _uiState.value = _uiState.value.copy(isLoading = true)
+            _uiState.update { it.copy(isLoading = true) }
 
             try {
                 val patients = apiService.getPatientsByPartFullName(partFullName)
-                _uiState.value = _uiState.value.copy(
-                    patients = patients,
-                    isLoading = false,
-                    error = null
-                )
+                val cards = patients.map { mapToCard(it) }
+
+                _uiState.update {
+                    it.copy(
+                        cards = cards,
+                        patients = patients,
+                        isLoading = false,
+                        error = null
+                    )
+                }
             } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(isLoading = false)
+                _uiState.update { it.copy(isLoading = false, error = e.message) }
             }
         }
     }

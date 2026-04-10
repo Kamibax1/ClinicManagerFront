@@ -27,10 +27,26 @@ val Gray500 = Color(0xFF6A7282)
 val Gray600 = Color(0xFF4A5565)
 val Gray700 = Color(0xFF364153)
 val Gray900 = Color(0xFF101828)
+val GrayText = Color(0xFF7A8FA3)
 val Blue50 = Color(0xFFEFF6FF)
 val Blue700 = Color(0xFF1447E6)
+val BlueTime = Color(0xFFE8F6FC)
 val Green50 = Color(0xFFF0FDF4)
 val Green700 = Color(0xFF008236)
+val GreenStatus = Color(0xFFE8F8F0)
+val GreenTextStatus = Color(0xFF81C784)
 val Red50 = Color(0xFFFEF2F2)
 val Red400 = Color(0xFFFF6467)
 val Red600 = Color(0xFFE7000B)
+
+val StatusScheduledContainer = Color(0xFFFFF8E1)  // оболочка
+val StatusScheduledText = Color(0xFFFFD54F)      // текст
+
+val StatusConfirmedContainer = Color(0xFFE8F8F0)  // оболочка
+val StatusConfirmedText = Color(0xFF81C784)
+
+val StatusCompletedContainer = Color(0xFFF3E5F5)  // оболочка
+val StatusCompletedText = Color(0xFF9FA8DA)       // текст
+
+val StatusCancelledContainer = Color(0xFFFFEBEE)  // оболочка
+val StatusCancelledText = Color(0xFFEF5350)       // текст

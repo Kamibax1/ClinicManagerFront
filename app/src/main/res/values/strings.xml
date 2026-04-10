@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Clinic Manager</string>
     <string name="search_patient">Поиск пациентов</string>
+    <string name="search_doctor">Поиск врачей</string>
+    <string name="search_appointment">Поиск записей</string>
     <string name="welcome">Добро пожаловать</string>
     <string name="today_day">Сегодняшний день</string>
     <string name="patients">Пациенты</string>

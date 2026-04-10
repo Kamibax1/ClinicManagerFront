@@ -14,4 +14,6 @@ sealed class Screen (
     object Appointments : Screen("appointments_screen", "Записи", Icons.Default.CalendarToday)
     object Profile : Screen("profile_screen", "Профиль", Icons.Default.Person)
     object Patients : Screen("patients_screen", "Пациенты", Icons.Default.Person)
+    object Doctors : Screen("doctors_screen", "Врачи", Icons.Default.Person)
+    object AppointmentInformation: Screen("appointment_information_screen", "Иноформация о записи", Icons.Default.Description)
 }

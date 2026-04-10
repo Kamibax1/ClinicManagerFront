@@ -15,7 +15,7 @@ fun Action(actionCard: ActionCard, modifier: Modifier){
         onClick = actionCard.onClick,
         modifier = modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(containerColor = Card),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(12.dp),
         contentPadding = PaddingValues(14.dp),
     ) {
         Column(

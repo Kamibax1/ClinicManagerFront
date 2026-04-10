@@ -12,6 +12,9 @@ data class DoctorModel (
     @SerializedName("last_name")
     val lastName: String,
 
+    @SerializedName("experience_years")
+    val experienceYears: Int,
+
     @SerializedName("specialization")
     val specialization: List<String>
 )

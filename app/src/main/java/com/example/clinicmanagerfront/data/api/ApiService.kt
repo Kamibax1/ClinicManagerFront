@@ -1,10 +1,6 @@
 package com.example.clinicmanagerfront.data.api
 
-import com.example.clinicmanagerfront.data.model.AppointmentFullModel
-import com.example.clinicmanagerfront.data.model.AppointmentModel
-import com.example.clinicmanagerfront.data.model.DoctorModel
-import com.example.clinicmanagerfront.data.model.PatientModel
-import com.example.clinicmanagerfront.data.model.StatusModel
+import com.example.clinicmanagerfront.data.model.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -38,4 +34,10 @@ interface ApiService {
 
     @GET("appointments/full")
     suspend fun getAppointmentsFull() : List<AppointmentFullModel>
+
+    @GET("doctors/search/{partName}")
+    suspend fun getDoctorsByPartName(@Path("partName") partName: String) : List<DoctorModel>
+
+    @GET("appointments/full/search/doctor/{doctorName}")
+    suspend fun getAppointmentsByPartDoctorName(@Path("doctorName") doctorName: String) : List<AppointmentFullModel>
 }

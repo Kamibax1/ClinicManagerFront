@@ -4,6 +4,5 @@ enum class StatusEnum(val ru: String) {
     SCHEDULED("Запланировано"),
     CONFIRMED("Подтверждено"),
     COMPLETED("Завершено"),
-    CANCELLED("Отменено"),
-    NO_SHOW("Неявка")
+    CANCELLED("Отменено")
 }

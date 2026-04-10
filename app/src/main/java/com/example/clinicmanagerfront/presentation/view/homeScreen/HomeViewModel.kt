@@ -3,6 +3,7 @@ package com.example.clinicmanagerfront.presentation.view.homeScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.clinicmanagerfront.data.api.ApiService
+import com.example.clinicmanagerfront.presentation.view.homeScreen.uiState.HomeFormAppointmentUiState
 import com.example.clinicmanagerfront.presentation.view.homeScreen.uiState.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -18,8 +19,12 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
+    private val _uiStateForm = MutableStateFlow(HomeFormAppointmentUiState())
+    val uiStateForm: StateFlow<HomeFormAppointmentUiState> = _uiStateForm.asStateFlow()
+
     init {
         loadStats()
+        loadFormInformation()
     }
 
     fun loadStats() {
@@ -46,6 +51,21 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadFormInformation() {
+        viewModelScope.launch {
+            try {
+                _uiStateForm.value = _uiStateForm.value.copy(isLoading = true)
 
+                val patients = apiService.getPatients()
+                val doctors = apiService.getDoctors()
+
+                _uiStateForm.value = _uiStateForm.value.copy(
+                    patients = patients,
+                    doctors = doctors,
+                    isLoading = false
+                )
+            } catch (e: Exception) {
+                _uiState.value = _uiState.value.copy(isLoading = false)
+            }
+        }
     }
 }

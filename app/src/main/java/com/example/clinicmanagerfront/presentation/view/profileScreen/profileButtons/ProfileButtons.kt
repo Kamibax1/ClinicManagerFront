@@ -11,7 +11,7 @@ import com.example.clinicmanagerfront.ui.theme.*
 
 @Composable
 fun ProfileButtons() {
-    val buttons = listOf<ProfileButtonData>(
+    val buttons = listOf(
         ProfileButtonData(
             Icons.Outlined.Settings,
             Gray700,
@@ -31,7 +31,7 @@ fun ProfileButtons() {
         ProfileButtonData(
             Icons.AutoMirrored.Outlined.Logout,
             Red600,
-            "Редактировать профиль",
+            "Выйти из аккаунта",
             Red600,
             Red400,
             Red50

@@ -1,8 +1,9 @@
 package com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentCard
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -11,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -19,160 +20,89 @@ import androidx.compose.ui.unit.sp
 import com.example.clinicmanagerfront.ui.theme.*
 
 @Composable
-fun AppointmentCard(dataCard: AppointmentDataCard) {
-    Column(
+fun AppointmentCard(
+    appointment: AppointmentDataCard,
+    onClick: () -> Unit
+) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .clickable { onClick() }
             .background(
                 color = Card,
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(12.dp)
             )
-            .padding(16.dp)
-    ){
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+            .padding(14.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(7.dp),
                 verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(
-                    imageVector = Icons.Outlined.CalendarToday,
-                    contentDescription = null,
-                    tint = BlueText,
-                    modifier = Modifier.size(16.dp),
-                )
-
-                Text(
-                    text = dataCard.date,
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        color = BlueText,
-                        fontFamily = FontFamily.SansSerif
-                    )
-                )
-            }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ){
-                Icon(
-                    imageVector = Icons.Outlined.AccessTime,
-                    contentDescription = null,
-                    tint = Gray400,
-                    modifier = Modifier.size(16.dp)
-                )
-
-                Text(
-                    text = dataCard.time,
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        color = Gray600,
-                        fontFamily = FontFamily.SansSerif
-                    )
-                )
-            }
-        }
-        Spacer(modifier = Modifier.size(12.dp))
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(15.dp)
-        ){
-            Box(
-                modifier = Modifier.size(40.dp),
-                contentAlignment = Alignment.Center
-            ){
-                Canvas(modifier = Modifier.matchParentSize()){
-                    drawCircle(color = Person)
-                }
-                Icon(
-                    imageVector = Icons.Outlined.PersonOutline,
-                    contentDescription = null,
-                    tint = Card,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Column(
-                modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = dataCard.patient.fullName,
-                    style = TextStyle(
-                        fontFamily = FontFamily.SansSerif,
-                        fontSize = 18.sp,
-                        color = Gray900
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = BlueTime,
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .padding(10.5.dp, 3.5.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = appointment.time,
+                        style = TextStyle(
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 12.25.sp,
+                            color = BlueText
+                        )
                     )
-                )
-                Text(
-                    text = dataCard.patient.phoneNumber,
-                    style = TextStyle(
-                        fontFamily = FontFamily.SansSerif,
-                        fontSize = 14.sp,
-                        color = Gray600
+                }
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = appointment.statusColor,
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .padding(10.5.dp, 3.5.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = appointment.status,
+                        style = TextStyle(
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 10.5.sp,
+                            color = appointment.statusTextColor
+                        )
                     )
-                )
+                }
             }
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp)
-        ) {
+            Spacer(modifier = Modifier.size(7.dp))
             Text(
-                text = "Врач",
-                style = TextStyle(
-                    fontFamily = FontFamily.SansSerif,
-                    fontSize = 12.sp,
-                    color = Gray500
-                )
-            )
-            Spacer(modifier = Modifier.size(4.dp))
-            Text(
-                text = dataCard.doctor.lastName + " " + dataCard.doctor.firstName,
+                text = appointment.doctorName,
                 style = TextStyle(
                     fontFamily = FontFamily.SansSerif,
                     fontSize = 14.sp,
                     color = Gray900
                 )
             )
-            Spacer(modifier = Modifier.size(4.dp))
+            Spacer(modifier = Modifier.size(3.5.dp))
             Text(
-                text = dataCard.doctorSpecialization,
+                text = appointment.doctorSpecializations,
                 style = TextStyle(
                     fontFamily = FontFamily.SansSerif,
-                    fontSize = 12.sp,
-                    color = BlueText
+                    fontSize = 12.25.sp,
+                    color = GrayText
                 )
             )
         }
-        Spacer(modifier = Modifier.size(12.dp))
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Row(
-                modifier = Modifier
-                    .background(
-                        color = dataCard.statusColor,
-                        shape = RoundedCornerShape(20.dp)
-                    )
-                    .padding(12.dp, 6.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Icon(
-                    imageVector = dataCard.iconStatus,
-                    contentDescription = null,
-                    tint = dataCard.iconStatusColor,
-                    modifier = Modifier.size(16.dp)
-                )
-                Text(
-                    text = dataCard.status,
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        color = dataCard.iconStatusColor,
-                        fontFamily = FontFamily.SansSerif
-                    )
-                )
-            }
-        }
+        Icon(
+            imageVector = Icons.Outlined.ChevronRight,
+            contentDescription = null,
+            tint = Gray400,
+            modifier = Modifier.size(20.dp)
+        )
     }
 }

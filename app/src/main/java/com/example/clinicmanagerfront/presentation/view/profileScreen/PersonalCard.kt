@@ -27,7 +27,7 @@ fun PersonalCard() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(10.dp, shape = RoundedCornerShape(15.dp))
+            .shadow(10.dp, shape = RoundedCornerShape(12.dp))
             .background(color = MainContentCard)
             .padding(24.dp)
     ) {

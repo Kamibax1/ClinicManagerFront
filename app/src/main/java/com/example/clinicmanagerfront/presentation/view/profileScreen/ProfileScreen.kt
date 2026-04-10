@@ -1,5 +1,6 @@
 package com.example.clinicmanagerfront.presentation.view.profileScreen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,17 +24,12 @@ fun ProfileScreen(navController: NavHostController) {
         modifier = Modifier
             .verticalScroll(verticalScroll)
             .fillMaxSize()
-            .padding(
-                start = 16.dp,
-                end = 16.dp,
-                bottom = 32.dp
-            )
+            .padding(horizontal = 17.5.dp),
+        verticalArrangement = Arrangement.spacedBy(17.5.dp)
     ) {
-        Spacer(modifier = Modifier.size(17.5.dp))
+        Spacer(modifier = Modifier.size(0.dp))
         PersonalCard()
-        Spacer(modifier = Modifier.size(24.dp))
         ProfileStats()
-        Spacer(modifier = Modifier.size(24.dp))
         ProfileButtons()
     }
 }
