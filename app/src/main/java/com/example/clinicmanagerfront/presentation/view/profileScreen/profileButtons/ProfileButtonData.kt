@@ -9,5 +9,6 @@ data class ProfileButtonData(
     val text: String,
     val textColor: Color,
     val secondIconColor: Color,
-    val backgroundColor: Color
+    val backgroundColor: Color,
+    val onClick: () -> Unit
 )

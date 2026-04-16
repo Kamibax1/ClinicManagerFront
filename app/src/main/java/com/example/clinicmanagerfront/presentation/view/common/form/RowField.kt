@@ -1,10 +1,8 @@
-package com.example.clinicmanagerfront.presentation.view.homeScreen.homeAddAppointmentForm.common
+package com.example.clinicmanagerfront.presentation.view.common.form
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

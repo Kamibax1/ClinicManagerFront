@@ -1,11 +1,11 @@
 package com.example.clinicmanagerfront.presentation.view.homeScreen.uiState
 
-import com.example.clinicmanagerfront.data.model.DoctorModel
-import com.example.clinicmanagerfront.data.model.PatientModel
+import com.example.clinicmanagerfront.data.model.DoctorShortInfoResponse
+import com.example.clinicmanagerfront.data.model.PatientShortInfoResponse
 
 data class HomeFormAppointmentUiState(
-    val patients: List<PatientModel>? = null,
-    val doctors: List<DoctorModel>? = null,
+    val patients: List<PatientShortInfoResponse>? = null,
+    val doctors: List<DoctorShortInfoResponse>? = null,
     val data: String? = null,
     val time: String? = null,
     val symptoms: String = "",

@@ -32,18 +32,24 @@ fun AppointmentsScreen(navController: NavHostController){
         AppointmentSearch(
             onQueryChange = { query -> viewModel.searchAppointment(query) }
         )
-        BlockSortButtons(listOf("Все", "Подтверждено", "Запланировано","Завершено", "Отменено"))
+        BlockSortButtons(
+            uiState.statusTitles,
+            onSortClick = { status -> viewModel.sortAppointment(status) }
+        )
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ){
             uiState.groupedCards?.forEach { group ->
                 AppointmentSection(
                     group = group,
-                    onAppointmentClick = {
-                        navController.navigateAndClearBackStack(Screen.AppointmentInformation.route)
+                    onAppointmentClick = { appointment ->
+                        navController.navigate(
+                            Screen.AppointmentInformation.createRoute(appointment.id)
+                        )
                     }
                 )
             }
         }
+        Spacer(modifier = Modifier.size(0.dp))
     }
 }

@@ -1,4 +1,4 @@
-package com.example.clinicmanagerfront.presentation.view.homeScreen.homeAddAppointmentForm.common
+package com.example.clinicmanagerfront.presentation.view.common.form
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

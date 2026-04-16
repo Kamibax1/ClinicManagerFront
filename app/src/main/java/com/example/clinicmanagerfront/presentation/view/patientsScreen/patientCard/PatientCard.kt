@@ -58,26 +58,14 @@ fun PatientCard(patientCard: PatientDataCard) {
                     color = Gray900
                 )
             )
-            Row{
-                Text(
-                    text = "Возраст: ",
-                    style = InformationCardTextStyle
-                )
-                Text(
-                    text = patientCard.age.toString(),
-                    style = InformationCardTextStyle
-                )
-            }
-            Row{
-                Text(
-                    text = "Телефон: ",
-                    style = InformationCardTextStyle
-                )
-                Text(
-                    text = patientCard.phoneNumber,
-                    style = InformationCardTextStyle
-                )
-            }
+            Text(
+                text = "Возраст: ${patientCard.age}",
+                style = InformationCardTextStyle
+            )
+            Text(
+                text = "Телефон: ${patientCard.phoneNumber}",
+                style = InformationCardTextStyle
+            )
         }
     }
 }

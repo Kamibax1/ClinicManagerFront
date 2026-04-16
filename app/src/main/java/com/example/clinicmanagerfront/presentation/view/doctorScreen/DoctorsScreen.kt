@@ -29,24 +29,10 @@ fun DoctorsScreen() {
             onQueryChange = { query -> viewModel.searchDoctors(query) }
         )
         Spacer(modifier = Modifier.size(17.5.dp))
-        BlockSortButtons(listOf(
-            "Все",
-            "Терапевт",
-            "Кардиолог",
-            "Невролог",
-            "Хирург",
-            "Педиатр",
-            "Офтальмолог",
-            "Отоларинголог (ЛОР)",
-            "Дерматолог",
-            "Стоматолог",
-            "Гинеколог",
-            "Уролог",
-            "Эндокринолог",
-            "Психиатр",
-            "Травматолог",
-            "Физиотерапевт"
-        ))
+        BlockSortButtons(
+            titles = uiState.specializations,
+            onSortClick = { specialization -> viewModel.sortDoctors(specialization) }
+        )
         Spacer(modifier = Modifier.size(17.5.dp))
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp)

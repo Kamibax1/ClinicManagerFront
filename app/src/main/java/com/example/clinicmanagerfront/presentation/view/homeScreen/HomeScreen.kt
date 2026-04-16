@@ -47,9 +47,9 @@ fun HomeScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 AddAppointmentForm(
+                    uiState = uiStateForm,
                     onDismiss = { showModalScreen = false },
-                    uiState = uiStateForm
-//                    onConfirm = { showModalScreen = false }
+                    onConfirm = { showModalScreen = false }
                 )
             }
         }

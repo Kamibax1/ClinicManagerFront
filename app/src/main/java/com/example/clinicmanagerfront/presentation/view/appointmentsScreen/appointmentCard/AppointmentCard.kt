@@ -90,7 +90,7 @@ fun AppointmentCard(
             )
             Spacer(modifier = Modifier.size(3.5.dp))
             Text(
-                text = appointment.doctorSpecializations,
+                text = appointment.symptoms,
                 style = TextStyle(
                     fontFamily = FontFamily.SansSerif,
                     fontSize = 12.25.sp,

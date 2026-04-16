@@ -51,33 +51,21 @@ fun DoctorCard(doctorCard: DoctorDataCard) {
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = doctorCard.lastName + " " + doctorCard.firstName,
+                text = doctorCard.fullName,
                 style = TextStyle(
                     fontFamily = FontFamily.SansSerif,
                     fontSize = 18.sp,
                     color = Gray900
                 )
             )
-            Row{
-                Text(
-                    text = "Опыт работы: ",
-                    style = InformationCardTextStyle
-                )
-                Text(
-                    text = doctorCard.experienceYears.toString() + " " + getYearsWord(doctorCard.experienceYears),
-                    style = InformationCardTextStyle
-                )
-            }
-            Row{
-                Text(
-                    text = "Специализации: ",
-                    style = InformationCardTextStyle
-                )
-                Text(
-                    text = doctorCard.specialization,
-                    style = InformationCardTextStyle
-                )
-            }
+            Text(
+                text = "Опыт работы: ${doctorCard.experienceYears.toString() + " " + getYearsWord(doctorCard.experienceYears)}",
+                style = InformationCardTextStyle
+            )
+            Text(
+                text = "Специализации: ${doctorCard.specialization}",
+                style = InformationCardTextStyle
+            )
         }
     }
 }
