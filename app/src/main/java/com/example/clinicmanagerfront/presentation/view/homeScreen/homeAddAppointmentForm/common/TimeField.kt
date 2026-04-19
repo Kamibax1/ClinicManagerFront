@@ -7,13 +7,16 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TimeField() {
-    var message by remember { mutableStateOf("") }
+fun TimeField(
+    onValueChange: (String) -> Unit
+) {
+    var message by remember{ mutableStateOf("") }
     var showTimePicker by remember { mutableStateOf(false) }
     val timePickerState = rememberTimePickerState(
 
@@ -40,6 +43,7 @@ fun TimeField() {
                     val hour = timePickerState.hour.toString().padStart(2, '0')
                     val minute = timePickerState.minute.toString().padStart(2, '0')
                     message = "$hour:$minute"
+                    onValueChange(message)
                     showTimePicker = false
                 }) { Text("OK") }
             },

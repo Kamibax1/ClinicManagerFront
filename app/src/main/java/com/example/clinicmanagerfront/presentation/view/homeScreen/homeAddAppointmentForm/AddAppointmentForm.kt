@@ -1,13 +1,17 @@
 package com.example.clinicmanagerfront.presentation.view.homeScreen.homeAddAppointmentForm
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.clinicmanagerfront.data.model.DoctorShortInformationModel
+import com.example.clinicmanagerfront.data.model.PatientShortInformationModel
 import com.example.clinicmanagerfront.presentation.view.common.form.*
 import com.example.clinicmanagerfront.presentation.view.homeScreen.homeAddAppointmentForm.common.*
 import com.example.clinicmanagerfront.presentation.view.homeScreen.uiState.HomeFormAppointmentUiState
@@ -16,9 +20,15 @@ import com.example.clinicmanagerfront.presentation.view.homeScreen.uiState.HomeF
 @Composable
 fun AddAppointmentForm(
     uiState: HomeFormAppointmentUiState,
+    onPatientSelected: (PatientShortInformationModel) -> Unit,
+    onDoctorSelected: (DoctorShortInformationModel) -> Unit,
+    onDataChanged: (String) -> Unit,
+    onTimeChanged: (String) -> Unit,
+    onSymptomsChanged: (String) -> Unit,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
+    val verticalScroll = rememberScrollState()
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp)
@@ -27,6 +37,7 @@ fun AddAppointmentForm(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
+                .verticalScroll(verticalScroll)
         ) {
             HeaderForm(
                 text = "Новая запись",
@@ -49,8 +60,10 @@ fun AddAppointmentForm(
                     composable = {
                         DropMenu(
                             DropMenuData(
-                                items = uiState.patients?.map { "${it.lastName} ${it.firstName} ${it.middleName}" } ?: emptyList(),
-                                title = "Выберите пациента")
+                                items = uiState.patients ?: emptyList(),
+                                title = "Выберите пациента",
+                                onItemSelected = { onPatientSelected(it) }
+                            )
                         )
                     }
                 )
@@ -66,8 +79,10 @@ fun AddAppointmentForm(
                     composable = {
                         DropMenu(
                             DropMenuData(
-                                items = uiState.doctors?.map { "${it.lastName} ${it.firstName} ${it.middleName}" } ?: emptyList(),
-                                title = "Выберите врача")
+                                items = uiState.doctors ?: emptyList(),
+                                title = "Выберите врача",
+                                onItemSelected = { onDoctorSelected(it) }
+                            )
                         )
                     }
                 )
@@ -81,7 +96,7 @@ fun AddAppointmentForm(
                         )
                     },
                     composable = {
-                        DateField()
+                        DateField(onValueChange = onDataChanged)
                     }
                 )
                 ColField(
@@ -94,7 +109,7 @@ fun AddAppointmentForm(
                         )
                     },
                     composable = {
-                        TimeField()
+                        TimeField(onValueChange = onTimeChanged)
                     }
                 )
                 ColField(
@@ -107,7 +122,11 @@ fun AddAppointmentForm(
                         )
                     },
                     composable = {
-                        FormTextField(title = "Введите симптомы")
+                        FormTextField(
+                            value = uiState.symptoms,
+                            onValueChange = onSymptomsChanged,
+                            title = "Введите симптомы"
+                        )
                     }
                 )
                 RowButton(onDismiss, onConfirm)

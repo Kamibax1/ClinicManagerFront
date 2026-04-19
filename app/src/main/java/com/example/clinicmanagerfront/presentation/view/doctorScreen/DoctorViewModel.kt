@@ -3,7 +3,7 @@ package com.example.clinicmanagerfront.presentation.view.doctorScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.clinicmanagerfront.data.api.ApiService
-import com.example.clinicmanagerfront.data.model.DoctorShortInfoResponse
+import com.example.clinicmanagerfront.data.model.DoctorShortInformationModel
 import com.example.clinicmanagerfront.presentation.view.doctorScreen.doctorCard.DoctorDataCard
 import com.example.clinicmanagerfront.presentation.view.doctorScreen.uiState.DoctorsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +21,7 @@ class DoctorViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(DoctorsUiState())
     val uiState: StateFlow<DoctorsUiState> = _uiState.asStateFlow()
 
-    var allDoctors: List<DoctorShortInfoResponse> = emptyList()
+    var allDoctors: List<DoctorShortInformationModel> = emptyList()
 
     private var searchJob: Job? = null
 
@@ -52,7 +52,7 @@ class DoctorViewModel @Inject constructor(
         }
     }
 
-    fun mapToCard(doctor: DoctorShortInfoResponse) : DoctorDataCard {
+    fun mapToCard(doctor: DoctorShortInformationModel) : DoctorDataCard {
         return DoctorDataCard(
             fullName = "${doctor.lastName} ${doctor.firstName} ${doctor.middleName}",
             experienceYears = doctor.experienceYears,

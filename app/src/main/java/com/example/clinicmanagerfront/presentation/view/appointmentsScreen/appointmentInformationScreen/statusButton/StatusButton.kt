@@ -20,9 +20,9 @@ fun StatusButton(button: StatusButtonData, modifier: Modifier) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .clickable { button.onClick() }
-            .background(color = button.backgroundColor)
+            .background(color = button.status.bgColor)
             .border(
-                color = button.textColor,
+                color = button.status.textColor,
                 width = 2.dp,
                 shape = RoundedCornerShape(12.dp)
             )
@@ -30,11 +30,11 @@ fun StatusButton(button: StatusButtonData, modifier: Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = button.text,
+            text = button.status.ru,
             style = TextStyle(
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 12.25.sp,
-                color = button.textColor
+                color = button.status.textColor
             )
         )
     }

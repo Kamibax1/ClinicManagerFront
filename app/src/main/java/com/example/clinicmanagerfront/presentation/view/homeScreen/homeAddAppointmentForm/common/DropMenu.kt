@@ -20,14 +20,14 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropMenu(dropMenu: DropMenuData) {
+fun <T> DropMenu(dropMenu: DropMenuData<T>) {
     var expanded by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
 
     val focusManager = LocalFocusManager.current
 
     val filteredItems = dropMenu.items.filter {
-        it.contains(message, ignoreCase = true)
+        it.toString().contains(message, ignoreCase = true)
     }
 
     val scrollState = rememberScrollState()
@@ -57,10 +57,11 @@ fun DropMenu(dropMenu: DropMenuData) {
             ) {
                 filteredItems.forEach { item ->
                     DropdownMenuItem(
-                        text = { Text(text = item) },
+                        text = { Text(text = item.toString()) },
                         onClick = {
-                            message = item
+                            message = item.toString()
                             expanded = false
+                            dropMenu.onItemSelected(item)
                             focusManager.clearFocus()
                         },
                     )

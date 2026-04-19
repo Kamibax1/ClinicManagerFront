@@ -74,7 +74,11 @@ fun UpdateProfileInformationForm(
                             )
                         },
                         composable = {
-                            FormTextField(title = "Иван")
+                            FormTextField(
+                                value = "Иван",
+                                onValueChange = {},
+                                title = ""
+                            )
                         }
                     )
                     ColField(
@@ -87,7 +91,11 @@ fun UpdateProfileInformationForm(
                             )
                         },
                         composable = {
-                            FormTextField(title = "Петров")
+                            FormTextField(
+                                value = "Петров",
+                                onValueChange = {},
+                                title = ""
+                            )
                         }
                     )
                     ColField(
@@ -100,7 +108,11 @@ fun UpdateProfileInformationForm(
                             )
                         },
                         composable = {
-                            FormTextField(title = "+7 (916) 123-45-67")
+                            FormTextField(
+                                value = "+7 (916) 123-45-67",
+                                onValueChange = {},
+                                title = ""
+                            )
                         }
                     )
                 }

@@ -41,14 +41,26 @@ val Red50 = Color(0xFFFEF2F2)
 val Red400 = Color(0xFFFF6467)
 val Red600 = Color(0xFFE7000B)
 
-val StatusScheduledContainer = Color(0xFFFFF8E1)  // оболочка
-val StatusScheduledText = Color(0xFFFFD54F)      // текст
+// Статус "Завершено" - зеленый
+val StatusCompletedContainer = Color(0xFFE8F5E9)  // фон
+val StatusCompletedText = Color(0xFF4CAF50)       // текст
 
-val StatusConfirmedContainer = Color(0xFFE8F8F0)  // оболочка
-val StatusConfirmedText = Color(0xFF81C784)
+// Статус "В ожидании" - оранжевый
+val StatusPendingContainer = Color(0xFFFFF3E0)    // фон
+val StatusPendingText = Color(0xFFFF9800)         // текст
 
-val StatusCompletedContainer = Color(0xFFF3E5F5)  // оболочка
-val StatusCompletedText = Color(0xFF9FA8DA)       // текст
+// Статус "В процессе" - синий
+val StatusInProgressContainer = Color(0xFFE3F2FD) // фон
+val StatusInProgressText = Color(0xFF2196F3)      // текст
 
-val StatusCancelledContainer = Color(0xFFFFEBEE)  // оболочка
-val StatusCancelledText = Color(0xFFEF5350)       // текст
+// Статус "Запланировано" - фиолетовый
+val StatusScheduledContainer = Color(0xFFF3E5F5)  // фон
+val StatusScheduledText = Color(0xFF9C27B0)       // текст
+
+// Статус "Не явился" - красный
+val StatusNoShowContainer = Color(0xFFFFEBEE)     // фон
+val StatusNoShowText = Color(0xFFF44336)          // текст
+
+// Статус "Отменено" - серый
+val StatusCancelledContainer = Color(0xFFECEFF1)  // фон
+val StatusCancelledText = Color(0xFF607D8B)       // текст

@@ -15,6 +15,7 @@ import com.example.clinicmanagerfront.presentation.view.homeScreen.fastAction.Fa
 import com.example.clinicmanagerfront.presentation.view.homeScreen.fastAction.navigateAndClearBackStack
 import com.example.clinicmanagerfront.presentation.view.homeScreen.homeAddAppointmentForm.AddAppointmentForm
 import com.example.clinicmanagerfront.presentation.view.homeScreen.stats.BlockStatsCards
+import com.example.clinicmanagerfront.presentation.view.homeScreen.uiEvent.HomeUiEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +37,10 @@ fun HomeScreen(navController: NavHostController) {
         Text(stringResource(id = R.string.fast_actions))
         Spacer(modifier = Modifier.size(14.dp))
         FastActions(
-            onOpenForm = { showModalScreen = true },
+            onOpenForm = {
+                viewModel.loadFormInformation()
+                showModalScreen = true
+            },
             onOpenPatients = { navController.navigateAndClearBackStack(Screen.Patients.route) },
             onOpenDoctors = { navController.navigateAndClearBackStack(Screen.Doctors.route) }
         )
@@ -49,7 +53,15 @@ fun HomeScreen(navController: NavHostController) {
                 AddAppointmentForm(
                     uiState = uiStateForm,
                     onDismiss = { showModalScreen = false },
-                    onConfirm = { showModalScreen = false }
+                    onConfirm = {
+                        viewModel.postUiEvent(HomeUiEvent.OnConfirm)
+                        showModalScreen = false
+                    },
+                    onPatientSelected = { viewModel.postUiEvent(HomeUiEvent.ChangeSelectedPatient(it)) },
+                    onDoctorSelected = { viewModel.postUiEvent(HomeUiEvent.ChangeSelectedDoctor(it)) },
+                    onDataChanged = { viewModel.postUiEvent(HomeUiEvent.ChangeSelectedDate(it)) },
+                    onTimeChanged = { viewModel.postUiEvent(HomeUiEvent.ChangeSelectedTime(it)) },
+                    onSymptomsChanged = { viewModel.postUiEvent(HomeUiEvent.ChangeSymptoms(it)) }
                 )
             }
         }

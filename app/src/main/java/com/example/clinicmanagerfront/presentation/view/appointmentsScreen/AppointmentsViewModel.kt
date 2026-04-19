@@ -3,7 +3,7 @@ package com.example.clinicmanagerfront.presentation.view.appointmentsScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.clinicmanagerfront.data.api.ApiService
-import com.example.clinicmanagerfront.data.model.AppointmentShortInformationResponse
+import com.example.clinicmanagerfront.data.model.AppointmentShortInformationModel
 import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentCard.AppointmentDataCard
 import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentCard.AppointmentGroup
 import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.uiState.AppointmentsUiState
@@ -29,11 +29,16 @@ class AppointmentsViewModel @Inject constructor(
     private val dateFormatter = DateTimeFormatter.ofPattern("E, d MMM", Locale.forLanguageTag("ru"))
     private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
-    private var allAppointments: List<AppointmentShortInformationResponse> = emptyList()
+    private var allAppointments: List<AppointmentShortInformationModel> = emptyList()
 
     private var searchJob: Job? = null
 
     init {
+        loadAppointments()
+    }
+
+    fun refresh() {
+        searchJob?.cancel()
         loadAppointments()
     }
 
@@ -45,7 +50,7 @@ class AppointmentsViewModel @Inject constructor(
                 val appointments = apiService.getAllAppointmentsShortInfo()
                 allAppointments = appointments
                 val sortedModels = appointments.sortedWith(
-                    compareBy<AppointmentShortInformationResponse> { it.date }
+                    compareBy<AppointmentShortInformationModel> { it.date }
                         .thenBy { it.time }
                 )
 
@@ -70,7 +75,7 @@ class AppointmentsViewModel @Inject constructor(
         }
     }
 
-    private fun mapToCard(appointment: AppointmentShortInformationResponse): AppointmentDataCard {
+    private fun mapToCard(appointment: AppointmentShortInformationModel): AppointmentDataCard {
         val date = LocalDate.parse(appointment.date)
         val time = LocalTime.parse(appointment.time)
 

@@ -2,7 +2,7 @@ package com.example.clinicmanagerfront.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class HomeStatsResponse(
+data class HomeStatsModel(
     @SerializedName("count_appointments_today")
     val countAppointmentToday: Int,
 

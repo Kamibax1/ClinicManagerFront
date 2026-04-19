@@ -13,15 +13,15 @@ enum class StatusEnum(
         bgColor = StatusCompletedContainer,
         textColor = StatusCompletedText
     ),
-    CONFIRMED(
-        ru = "Подтверждено",
-        bgColor = StatusConfirmedContainer,
-        textColor = StatusConfirmedText
+    PENDING(
+        ru = "В ожидании",
+        bgColor = StatusPendingContainer,
+        textColor = StatusPendingText
     ),
     IN_PROGRESS(
         ru = "В процессе",
-        bgColor = Color(0xFFE3F2FD),
-        textColor = Color(0xFF64B5F6)
+        bgColor = StatusInProgressContainer,
+        textColor = StatusInProgressText
     ),
     SCHEDULED(
         ru = "Запланировано",
@@ -30,8 +30,8 @@ enum class StatusEnum(
     ),
     NO_SHOW(
         ru = "Не явился",
-        bgColor = Color(0xFFFFF3E0),
-        textColor = Color(0xFFFFB74D)
+        bgColor = StatusNoShowContainer,
+        textColor = StatusNoShowText
     ),
     CANCELLED(
         ru = "Отменено",

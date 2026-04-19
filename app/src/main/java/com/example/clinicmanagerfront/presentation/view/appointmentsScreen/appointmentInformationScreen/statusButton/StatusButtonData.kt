@@ -1,10 +1,8 @@
 package com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentInformationScreen.statusButton
 
-import androidx.compose.ui.graphics.Color
+import com.example.clinicmanagerfront.data.model.enums.StatusEnum
 
 data class StatusButtonData(
-    val text: String,
-    val textColor: Color,
-    val backgroundColor: Color,
+    val status: StatusEnum,
     val onClick: () -> Unit
 )

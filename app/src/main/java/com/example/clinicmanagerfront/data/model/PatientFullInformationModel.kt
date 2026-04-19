@@ -1,9 +1,8 @@
 package com.example.clinicmanagerfront.data.model
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDate
 
-data class PatientShortInfoResponse(
+data class PatientFullInformationModel(
     @SerializedName("first_name")
     val firstName: String,
 
@@ -16,6 +15,12 @@ data class PatientShortInfoResponse(
     @SerializedName("date_of_birth")
     val dateOfBirth: String,
 
+    @SerializedName("gender")
+    val gender: String,
+
     @SerializedName("phone_number")
     val phoneNumber: String,
+
+    @SerializedName("email")
+    val email: String
 )

@@ -2,7 +2,7 @@ package com.example.clinicmanagerfront.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DoctorFullInformationResponse(
+data class DoctorFullInformationModel(
     @SerializedName("first_name")
     val firstName: String,
 

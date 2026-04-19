@@ -88,7 +88,7 @@ class AppointmentInformationViewModel @Inject constructor(
         }
     }
 
-    fun mapToAppointmentData(appointment: AppointmentFullInformationResponse) : AppointmentInformationData {
+    fun mapToAppointmentData(appointment: AppointmentFullInformationModel) : AppointmentInformationData {
         val doctor = appointment.doctor
         val patient = appointment.patient
         val gender = patient.gender
@@ -111,5 +111,22 @@ class AppointmentInformationViewModel @Inject constructor(
             doctorPhoneNumber = doctor.phoneNumber,
             doctorSpecializations = doctor.specializations.joinToString(", ") { it.name }
         )
+    }
+
+    fun deleteAppointment(appointmentId: Long) {
+        viewModelScope.launch {
+            try {
+                _uiState.update { it.copy(isLoading = true) }
+                apiService.deleteAppointmentById(appointmentId)
+                _uiState.update { it.copy(isLoading = false) }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        error = e.message
+                    )
+                }
+            }
+        }
     }
 }

@@ -14,7 +14,9 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun DateField() {
+fun DateField(
+    onValueChange: (String) -> Unit
+) {
     var message by remember { mutableStateOf("") }
     val datePickerState = rememberDatePickerState()
     var showDatePicker by remember { mutableStateOf(false) }
@@ -38,9 +40,10 @@ fun DateField() {
             confirmButton = {
                 TextButton( onClick = {
                     val date = datePickerState.selectedDateMillis?.let {
-                        SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(it))
+                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(it))
                     } ?: ""
                     message = date
+                    onValueChange(message)
                     showDatePicker = false
                 }) { Text("OK") }
             }
