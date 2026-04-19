@@ -1,23 +1,20 @@
 package com.example.clinicmanagerfront.presentation.view.appointmentsScreen
 
-import android.icu.text.SimpleDateFormat
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.clinicmanagerfront.data.api.ApiService
-import com.example.clinicmanagerfront.data.model.AppointmentFullModel
-import com.example.clinicmanagerfront.data.model.AppointmentModel
+import com.example.clinicmanagerfront.data.model.AppointmentShortInformationModel
 import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentCard.AppointmentDataCard
+import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentCard.AppointmentGroup
 import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.uiState.AppointmentsUiState
-import com.example.clinicmanagerfront.ui.theme.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.util.Date
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 import javax.inject.Inject
 
@@ -29,7 +26,19 @@ class AppointmentsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(AppointmentsUiState())
     val uiState: StateFlow<AppointmentsUiState> = _uiState.asStateFlow()
 
+    private val dateFormatter = DateTimeFormatter.ofPattern("E, d MMM", Locale.forLanguageTag("ru"))
+    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+    private var allAppointments: List<AppointmentShortInformationModel> = emptyList()
+
+    private var searchJob: Job? = null
+
     init {
+        loadAppointments()
+    }
+
+    fun refresh() {
+        searchJob?.cancel()
         loadAppointments()
     }
 
@@ -37,45 +46,118 @@ class AppointmentsViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
-                val appointmentsFull = apiService.getAppointmentsFull()
-                val cards = appointmentsFull.map { fullDto ->
-                    mapToCard(fullDto)
+                val statusTitles = apiService.getAllStatus()
+                val appointments = apiService.getAllAppointmentsShortInfo()
+                allAppointments = appointments
+                val sortedModels = appointments.sortedWith(
+                    compareBy<AppointmentShortInformationModel> { it.date }
+                        .thenBy { it.time }
+                )
+
+                val cards = sortedModels.map { mapToCard(it) }
+
+                val groupedCards = cards.groupBy { it.date }.map { (date, items) ->
+                    AppointmentGroup(date, items)
                 }
 
-                _uiState.update { it.copy(cards = cards, isLoading = false) }
+                _uiState.update { it.copy(
+                    cards = cards,
+                    groupedCards = groupedCards,
+                    statusTitles = statusTitles.map { status -> status.status.ru },
+                    isLoading = false
+                ) }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(
+                    isLoading = false,
+                    error = e.message
+                ) }
+            }
+        }
+    }
+
+    private fun mapToCard(appointment: AppointmentShortInformationModel): AppointmentDataCard {
+        val date = LocalDate.parse(appointment.date)
+        val time = LocalTime.parse(appointment.time)
+
+        val formattedDate = date.format(dateFormatter)
+            .split(" ")
+            .joinToString(" ") { word -> word.replaceFirstChar { it.uppercase() } }
+
+        val formattedTime = time.format(timeFormatter)
+
+        return AppointmentDataCard(
+            id = appointment.id,
+            date = formattedDate,
+            time = formattedTime,
+            doctorName = appointment.doctorName,
+            symptoms = appointment.symptoms,
+            status = appointment.status.status.ru,
+            statusColor = appointment.status.status.bgColor,
+            statusTextColor = appointment.status.status.textColor
+        )
+    }
+
+    fun searchAppointment(partName: String) {
+        searchJob?.cancel()
+
+        if (partName.isBlank()) {
+            loadAppointments()
+            return
+        }
+
+        searchJob = viewModelScope.launch {
+            delay(500)
+            _uiState.update { it.copy(isLoading = true) }
+
+            try {
+                val appointments = apiService.getAllAppointmentsShortInfoByDoctorName(partName)
+                val cards = appointments.map { mapToCard(it) }
+                val gropedCards = groupByDate(cards)
+
+                _uiState.update {
+                    it.copy(
+                        cards = cards,
+                        groupedCards = gropedCards,
+                        appointments = appointments,
+                        isLoading = false,
+                        error = null
+                    )
+                }
             } catch (e: Exception) {
                 _uiState.update { it.copy(isLoading = false, error = e.message) }
             }
         }
     }
 
-    private fun mapToCard(appointment: AppointmentFullModel): AppointmentDataCard {
-        val dateTime = java.time.LocalDateTime.parse(
-            appointment.dateTime,
-            java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
-        )
+    private fun groupByDate(cards: List<AppointmentDataCard>): List<AppointmentGroup> {
+        return cards
+            .groupBy { it.date }
+            .map { (date, items) -> AppointmentGroup(date, items) }
+    }
 
-        val date = Date.from(dateTime.atZone(java.time.ZoneId.systemDefault()).toInstant())
+    fun sortAppointment(status: String) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
 
-        val statusText = appointment.status.status.ru
-        val doctor = appointment.doctor
+            val filteredAppointments = if (status == "Все") allAppointments
+            else {
+                allAppointments.filter { appointment ->
+                    appointment.status.status.ru == status
+                }
+            }
 
-        val (iconStatus, iconStatusColor, statusColor) = if (statusText == "Завершено") {
-            Triple(Icons.Outlined.CheckCircle, Green700, Green50)
-        } else {
-            Triple(Icons.Outlined.AccessTime, Blue700, Blue50)
+            val filteredCard = filteredAppointments.map { mapToCard(it) }
+            val groupedCards = groupByDate(filteredCard)
+
+            _uiState.update {
+                it.copy(
+                    appointments = filteredAppointments,
+                    cards = filteredCard,
+                    groupedCards = groupedCards,
+                    isLoading = false,
+                    error = null
+                )
+            }
         }
-
-        return AppointmentDataCard(
-            date = SimpleDateFormat("d MMMM", Locale.forLanguageTag("ru")).format(date),
-            time = SimpleDateFormat("HH:mm", Locale.getDefault()).format(date),
-            patient = appointment.patient,
-            doctor = doctor,
-            doctorSpecialization = doctor.specialization.joinToString(", "),
-            status = statusText,
-            iconStatus = iconStatus,
-            iconStatusColor = iconStatusColor,
-            statusColor = statusColor
-        )
     }
 }

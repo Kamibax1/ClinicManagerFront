@@ -7,10 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,11 +20,13 @@ import androidx.compose.ui.unit.sp
 import com.example.clinicmanagerfront.ui.theme.*
 
 @Composable
-fun PersonalCard() {
+fun PersonalCard(
+    onOpenForm: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(10.dp, shape = RoundedCornerShape(15.dp))
+            .shadow(10.dp, shape = RoundedCornerShape(12.dp))
             .background(color = MainContentCard)
             .padding(24.dp)
     ) {
@@ -76,7 +75,7 @@ fun PersonalCard() {
                 }
             }
             IconButton(
-                onClick = { },
+                onClick = onOpenForm,
                 modifier = Modifier.size(32.dp),
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = Primary,

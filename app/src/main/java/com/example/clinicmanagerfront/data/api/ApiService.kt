@@ -1,41 +1,60 @@
 package com.example.clinicmanagerfront.data.api
 
-import com.example.clinicmanagerfront.data.model.AppointmentFullModel
-import com.example.clinicmanagerfront.data.model.AppointmentModel
-import com.example.clinicmanagerfront.data.model.DoctorModel
-import com.example.clinicmanagerfront.data.model.PatientModel
-import com.example.clinicmanagerfront.data.model.StatusModel
-import retrofit2.http.GET
-import retrofit2.http.Path
+import com.example.clinicmanagerfront.data.model.*
+import com.example.clinicmanagerfront.data.model.HomeStatsModel
+import com.example.clinicmanagerfront.data.model.enums.StatusEnum
+import retrofit2.http.*
 
 interface ApiService {
-    @GET("patients")
-    suspend fun getPatients() : List<PatientModel>
 
-    @GET("appointments/find/doctor/1")
-    suspend fun getAppointmentsByDoctorId() : List<AppointmentModel>
+    @GET("appointments/information/short")
+    suspend fun getAllAppointmentsShortInfo(): List<AppointmentShortInformationModel>
 
-    @GET("appointments/find/status/COMPLETED")
-    suspend fun getAppointmentsByStatus() : List<AppointmentModel>
+    @GET("appointments/information/full/{id}")
+    suspend fun getAppointmentFullInfoById(@Path("id") id: Long) : AppointmentFullInformationModel
 
-    @GET("doctors")
-    suspend fun getDoctors() : List<DoctorModel>
+    @PUT("appointments/information/{id}")
+    suspend fun updateStatus(
+        @Path("id") id : Long,
+        @Body status: StatusEnum
+    ) : AppointmentFullInformationModel
 
-    @GET("patients/search/{partFullName}")
-    suspend fun getPatientsByPartFullName(@Path("partFullName") partFullName: String) : List<PatientModel>
+    @GET("doctors/information/short")
+    suspend fun getAllDoctorsShortInfo() : List<DoctorShortInformationModel>
 
-    @GET("patients/{id}")
-    suspend fun getPatientById(@Path("id") id: Long) : PatientModel
+    @GET("specializations")
+    suspend fun getAllDoctorsSpecializations() : List<SpecializationModel>
 
-    @GET("doctors/{id}")
-    suspend fun getDoctorById(@Path("id") id: Long) : DoctorModel
+    @GET("home/stats")
+    suspend fun getHomeStats() : HomeStatsModel
+
+    @GET("patients/information/short")
+    suspend fun getAllPatientsShortInfo() : List<PatientShortInformationModel>
+
+    @GET("status")
+    suspend fun getAllStatus() : List<StatusModel>
 
     @GET("status/{id}")
     suspend fun getStatusById(@Path("id") id: Long) : StatusModel
 
-    @GET("appointments")
-    suspend fun getAppointments() : List<AppointmentModel>
+    @GET("appointments/information/short/{doctorName}")
+    suspend fun getAllAppointmentsShortInfoByDoctorName(@Path("doctorName") doctorName: String) : List<AppointmentShortInformationModel>
 
-    @GET("appointments/full")
-    suspend fun getAppointmentsFull() : List<AppointmentFullModel>
+    @GET("doctors/information/short/{name}")
+    suspend fun getAllDoctorsShortInfoByName(@Path("name") name: String) : List<DoctorShortInformationModel>
+
+    @GET("patients/information/short/{name}")
+    suspend fun getAllPatientsShortInfoByName(@Path("name") name: String) : List<PatientShortInformationModel>
+
+    @POST("appointments")
+    suspend fun saveAppointment(@Body appointment: CreateAppointmentModel) : CreateAppointmentModel
+
+    @GET("status/search/name/{name}")
+    suspend fun getStatusByName(@Path("name") name: StatusEnum) : StatusModel
+
+    @DELETE("appointments/{id}")
+    suspend fun deleteAppointmentById(@Path("id") id: Long)
+
+//    @POST("appointments")
+//    suspend fun createAppointment(@Body appointmentRequest: CreateAppointmentRequest) : CreateAppointmentRequest
 }

@@ -22,15 +22,45 @@ val ChartBackground2 = Color(0xFFE8F8F0)
 val ChartBackground3 = Color(0xFFFFF8E1)
 val ChartBackground4 = Color(0xFFF3E5F5)
 val Gray50 = Color(0xFFF9FAFB)
+val Gray100 = Color(0xFFF3F4F6)
+val Gray200 = Color(0xFFEBE6E7)
 val Gray400 = Color(0xFF99A1AF)
 val Gray500 = Color(0xFF6A7282)
 val Gray600 = Color(0xFF4A5565)
 val Gray700 = Color(0xFF364153)
 val Gray900 = Color(0xFF101828)
+val GrayText = Color(0xFF7A8FA3)
 val Blue50 = Color(0xFFEFF6FF)
 val Blue700 = Color(0xFF1447E6)
+val BlueTime = Color(0xFFE8F6FC)
 val Green50 = Color(0xFFF0FDF4)
 val Green700 = Color(0xFF008236)
+val GreenStatus = Color(0xFFE8F8F0)
+val GreenTextStatus = Color(0xFF81C784)
 val Red50 = Color(0xFFFEF2F2)
 val Red400 = Color(0xFFFF6467)
 val Red600 = Color(0xFFE7000B)
+
+// Статус "Завершено" - зеленый
+val StatusCompletedContainer = Color(0xFFE8F5E9)  // фон
+val StatusCompletedText = Color(0xFF4CAF50)       // текст
+
+// Статус "В ожидании" - оранжевый
+val StatusPendingContainer = Color(0xFFFFF3E0)    // фон
+val StatusPendingText = Color(0xFFFF9800)         // текст
+
+// Статус "В процессе" - синий
+val StatusInProgressContainer = Color(0xFFE3F2FD) // фон
+val StatusInProgressText = Color(0xFF2196F3)      // текст
+
+// Статус "Запланировано" - фиолетовый
+val StatusScheduledContainer = Color(0xFFF3E5F5)  // фон
+val StatusScheduledText = Color(0xFF9C27B0)       // текст
+
+// Статус "Не явился" - красный
+val StatusNoShowContainer = Color(0xFFFFEBEE)     // фон
+val StatusNoShowText = Color(0xFFF44336)          // текст
+
+// Статус "Отменено" - серый
+val StatusCancelledContainer = Color(0xFFECEFF1)  // фон
+val StatusCancelledText = Color(0xFF607D8B)       // текст

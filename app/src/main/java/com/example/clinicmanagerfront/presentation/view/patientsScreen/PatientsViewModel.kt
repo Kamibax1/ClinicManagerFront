@@ -3,20 +3,16 @@ package com.example.clinicmanagerfront.presentation.view.patientsScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.clinicmanagerfront.data.api.ApiService
-import com.example.clinicmanagerfront.data.model.PatientModel
+import com.example.clinicmanagerfront.data.model.PatientShortInformationModel
 import com.example.clinicmanagerfront.presentation.view.patientsScreen.patientCard.PatientDataCard
 import com.example.clinicmanagerfront.presentation.view.patientsScreen.uiState.PatientsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.Period
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,7 +33,7 @@ class PatientsViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
-                val patients = apiService.getPatients()
+                val patients = apiService.getAllPatientsShortInfo()
                 val cards = patients.map { patient ->
                     mapToCard(patient)
                 }
@@ -49,43 +45,43 @@ class PatientsViewModel @Inject constructor(
         }
     }
 
-    fun mapToCard(patient: PatientModel) : PatientDataCard {
-
-        val age = Period.between(
-            LocalDate.parse(
-                patient.dateOfBirth,
-                DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            ),
-            LocalDate.now()
-        ).years
+    fun mapToCard(patient: PatientShortInformationModel) : PatientDataCard {
+        val fullName = "${patient.lastName} ${patient.firstName} ${patient.middleName}"
+        val age = Period.between(LocalDate.parse(patient.dateOfBirth), LocalDate.now()).years
 
         return PatientDataCard(
-            fullName = patient.fullName,
+            fullName = fullName,
             age = age,
             phoneNumber = patient.phoneNumber
         )
     }
 
     fun searchPatients(partFullName: String) {
+        searchJob?.cancel()
+
         if (partFullName.isBlank()) {
-            _uiState.value = _uiState.value.copy(patients = emptyList())
+            loadPatients()
             return
         }
 
-        searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500)
-            _uiState.value = _uiState.value.copy(isLoading = true)
+            _uiState.update { it.copy(isLoading = true) }
 
             try {
-                val patients = apiService.getPatientsByPartFullName(partFullName)
-                _uiState.value = _uiState.value.copy(
-                    patients = patients,
-                    isLoading = false,
-                    error = null
-                )
+                val patients = apiService.getAllPatientsShortInfoByName(partFullName)
+                val cards = patients.map { mapToCard(it) }
+
+                _uiState.update {
+                    it.copy(
+                        cards = cards,
+                        patients = patients,
+                        isLoading = false,
+                        error = null
+                    )
+                }
             } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(isLoading = false)
+                _uiState.update { it.copy(isLoading = false, error = e.message) }
             }
         }
     }

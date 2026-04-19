@@ -2,9 +2,13 @@ package com.example.clinicmanagerfront.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.AppointmentsScreen
+import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentInformationScreen.AppointmentInformationScreen
+import com.example.clinicmanagerfront.presentation.view.doctorScreen.DoctorsScreen
 import com.example.clinicmanagerfront.presentation.view.homeScreen.HomeScreen
 import com.example.clinicmanagerfront.presentation.view.patientsScreen.PatientsScreen
 import com.example.clinicmanagerfront.presentation.view.profileScreen.ProfileScreen
@@ -28,6 +32,19 @@ fun Navigation(
         }
         composable(Screen.Patients.route) {
             PatientsScreen()
+        }
+        composable(Screen.Doctors.route) {
+            DoctorsScreen()
+        }
+        composable(
+            route = Screen.AppointmentInformation.route,
+            arguments = listOf(navArgument("appointmentId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val appointmentId = Screen.AppointmentInformation.getAppointmentId(backStackEntry)
+            AppointmentInformationScreen(
+                navController = navController,
+                appointmentId = appointmentId
+            )
         }
     }
 }

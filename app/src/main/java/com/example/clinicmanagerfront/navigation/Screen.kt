@@ -2,8 +2,8 @@ package com.example.clinicmanagerfront.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavBackStackEntry
 
 sealed class Screen (
     val route: String,
@@ -14,4 +14,12 @@ sealed class Screen (
     object Appointments : Screen("appointments_screen", "Записи", Icons.Default.CalendarToday)
     object Profile : Screen("profile_screen", "Профиль", Icons.Default.Person)
     object Patients : Screen("patients_screen", "Пациенты", Icons.Default.Person)
+    object Doctors : Screen("doctors_screen", "Врачи", Icons.Default.Person)
+    object AppointmentInformation : Screen("appointment_information_screen/{appointmentId}", "Информация о записи", Icons.Default.Description) {
+        fun createRoute(appointmentId: Long) = "appointment_information_screen/$appointmentId"
+
+        fun getAppointmentId(backStackEntry: NavBackStackEntry): Long {
+            return backStackEntry.arguments?.getLong("appointmentId") ?: -1L
+        }
+    }
 }

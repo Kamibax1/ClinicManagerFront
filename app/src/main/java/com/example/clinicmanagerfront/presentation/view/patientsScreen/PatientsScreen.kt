@@ -9,7 +9,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.sort.BlockSortCards
 import com.example.clinicmanagerfront.presentation.view.patientsScreen.patientCard.PatientCard
 
 @Composable
@@ -21,16 +20,14 @@ fun PatientsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 17.5.dp)
             .verticalScroll(verticalScroll)
     ){
+        Spacer(modifier = Modifier.size(17.5.dp))
         PatientSearch(
-            uiState = uiState,
             onQueryChange = { query -> viewModel.searchPatients(query) }
         )
         Spacer(modifier = Modifier.size(17.5.dp))
-        BlockSortCards()
-        Spacer(modifier = Modifier.size(32.dp))
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ){
@@ -38,5 +35,6 @@ fun PatientsScreen() {
                 PatientCard(card)
             }
         }
+        Spacer(modifier = Modifier.size(17.5.dp))
     }
 }

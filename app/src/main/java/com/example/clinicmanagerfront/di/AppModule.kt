@@ -19,6 +19,8 @@ object AppModule {
     //10.185.232.79
     //10.143.192.15
     //192.168.0.145
+    //192.168.0.116
+    //172.16.47.121
     private const val BASE_URL = "http://192.168.0.145:8081/api/"
 
     @Provides

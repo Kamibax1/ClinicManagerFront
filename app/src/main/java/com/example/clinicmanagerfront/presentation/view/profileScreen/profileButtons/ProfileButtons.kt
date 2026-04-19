@@ -10,15 +10,18 @@ import androidx.compose.ui.unit.dp
 import com.example.clinicmanagerfront.ui.theme.*
 
 @Composable
-fun ProfileButtons() {
-    val buttons = listOf<ProfileButtonData>(
+fun ProfileButtons(
+    onOpenForm: () -> Unit
+) {
+    val buttons = listOf(
         ProfileButtonData(
             Icons.Outlined.Settings,
             Gray700,
             "Настройки",
             Gray900,
             Gray400,
-            Gray50
+            Gray50,
+            {}
         ),
         ProfileButtonData(
             Icons.Outlined.PersonOutline,
@@ -26,15 +29,17 @@ fun ProfileButtons() {
             "Редактировать профиль",
             Gray900,
             Gray400,
-            Gray50
+            Gray50,
+            onOpenForm
         ),
         ProfileButtonData(
             Icons.AutoMirrored.Outlined.Logout,
             Red600,
-            "Редактировать профиль",
+            "Выйти из аккаунта",
             Red600,
             Red400,
-            Red50
+            Red50,
+            {}
         )
     )
     Column(

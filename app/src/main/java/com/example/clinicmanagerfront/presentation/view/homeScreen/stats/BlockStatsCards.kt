@@ -16,10 +16,10 @@ fun BlockStatsCards(
     uiState: HomeUiState
 ){
     val statsCards = listOf(
-        StatsCard(stringResource(id = R.string.patients), uiState.patientCount, Chart2, Icons.Outlined.Schedule),
-        StatsCard(stringResource(id = R.string.appointment_today), uiState.appointmentCount, Chart1, Icons.Outlined.CalendarMonth),
-        StatsCard(stringResource(id = R.string.doctors), uiState.doctorsCount, Chart3, Icons.Outlined.Info),
-        StatsCard(stringResource(id = R.string.completed), uiState.completedCount, Chart4, Icons.Outlined.CheckCircle)
+        StatsCard(stringResource(id = R.string.appointment_today), uiState.countAppointmentsToday, Chart1, Icons.Outlined.CalendarMonth),
+        StatsCard(stringResource(id = R.string.patients), uiState.countPatients, Chart2, Icons.Outlined.Schedule),
+        StatsCard(stringResource(id = R.string.doctors), uiState.countDoctors, Chart3, Icons.Outlined.Info),
+        StatsCard(stringResource(id = R.string.completed), uiState.countAppointmentsCompleted, Chart4, Icons.Outlined.CheckCircle)
     )
 
     Column(
