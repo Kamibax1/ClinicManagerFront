@@ -15,10 +15,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.clinicmanagerfront.R
+import com.example.clinicmanagerfront.data.model.enums.RoleEnum
+import com.example.clinicmanagerfront.presentation.view.homeScreen.uiState.HomeUiState
 import com.example.clinicmanagerfront.ui.theme.*
 
 @Composable
-fun WelcomeCard(){
+fun WelcomeCard(
+    uiState: HomeUiState,
+){
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +44,11 @@ fun WelcomeCard(){
             )
             Spacer(modifier = Modifier.size(3.5.dp))
             Text(
-                text = "Dr. Anderson",
+                text = when (uiState.user?.role) {
+                    RoleEnum.ADMIN -> uiState.user.username
+                    RoleEnum.DOCTOR -> "Доктор ${uiState.doctor?.lastName}"
+                    else -> "${uiState.patient?.lastName} ${uiState.patient?.firstName} ${uiState.patient?.middleName}"
+                },
                 style = StatsTextStyle,
                 fontSize = 15.75.sp
             )
@@ -67,12 +75,12 @@ fun WelcomeCard(){
                 .padding(10.5.dp)
             ) {
                 Text(
-                    text = stringResource(id = R.string.today_day),
+                    text = "Сегодня",
                     style = StatsTextStyle,
                     fontSize = 10.5.sp
                 )
                 Text(
-                    text = "Friday, March 27",
+                    text = uiState.textDateNow,
                     style = StatsTextStyle,
                     fontSize = 12.25.sp
                 )

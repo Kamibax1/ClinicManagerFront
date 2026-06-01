@@ -9,5 +9,6 @@ sealed class HomeUiEvent {
     data class ChangeSelectedDate(val date: String) : HomeUiEvent()
     data class ChangeSelectedTime(val time: String) : HomeUiEvent()
     data class ChangeSymptoms(val symptoms: String) : HomeUiEvent()
+    data object OnUpdateStatusForm : HomeUiEvent()
     data object OnConfirm : HomeUiEvent()
 }

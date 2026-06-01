@@ -1,6 +1,8 @@
 package com.example.clinicmanagerfront.di
 
 import com.example.clinicmanagerfront.data.api.ApiService
+import com.example.clinicmanagerfront.data.api.AuthInterceptor
+import com.example.clinicmanagerfront.data.api.AuthService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,21 +18,29 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    //10.185.232.79
     //10.143.192.15
-    //192.168.0.145
-    //192.168.0.116
+    //10.185.232.21
+    //10.185.232.79
+    //10.191.162.15
+    //10.196.178.15
+    //10.210.85.15
     //172.16.47.121
-    private const val BASE_URL = "http://192.168.0.145:8081/api/"
+    //172.26.102.15
+    //192.168.0.116
+    //192.168.0.145
+    //192.168.31.92
+
+    private const val BASE_URL = "http://10.191.162.15:8081/api/"
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
         return OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -52,5 +62,11 @@ object AppModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthService(retrofit: Retrofit): AuthService {
+        return retrofit.create(AuthService::class.java)
     }
 }

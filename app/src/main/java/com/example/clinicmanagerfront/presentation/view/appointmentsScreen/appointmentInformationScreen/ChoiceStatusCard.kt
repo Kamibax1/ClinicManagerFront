@@ -11,6 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.clinicmanagerfront.data.model.enums.RoleEnum
 import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentInformationScreen.statusButton.StatusButtonBlock
 import com.example.clinicmanagerfront.presentation.view.appointmentsScreen.appointmentInformationScreen.uiState.AppointmentInformationUiState
 import com.example.clinicmanagerfront.ui.theme.Card
@@ -59,7 +60,9 @@ fun ChoiceStatusCard(
                 )
             }
         }
-        Spacer(modifier = Modifier.size(14.dp))
-        StatusButtonBlock(onStatusSelected = onStatusSelected)
+        if (uiState.user?.role != RoleEnum.PATIENT && uiState.accessForDoctor || uiState.user?.role == RoleEnum.ADMIN){
+            Spacer(modifier = Modifier.size(14.dp))
+            StatusButtonBlock(onStatusSelected = onStatusSelected)
+        }
     }
 }

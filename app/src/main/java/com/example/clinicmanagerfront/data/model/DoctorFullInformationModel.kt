@@ -3,6 +3,9 @@ package com.example.clinicmanagerfront.data.model
 import com.google.gson.annotations.SerializedName
 
 data class DoctorFullInformationModel(
+    @SerializedName("id_doctor_full_information")
+    val id: Long,
+
     @SerializedName("first_name")
     val firstName: String,
 
@@ -21,21 +24,3 @@ data class DoctorFullInformationModel(
     @SerializedName("specializations")
     val specializations: Set<SpecializationModel>
 )
-
-//@Getter @Setter
-//private String firstName;
-//
-//@Getter @Setter
-//private String lastName;
-//
-//@Getter @Setter
-//private String middleName;
-//
-//@Getter @Setter
-//private int experienceYears;
-//
-//@Getter @Setter
-//private String phoneNumber;
-//
-//@Getter @Setter
-//private Set<SpecializationDTO> specializations;

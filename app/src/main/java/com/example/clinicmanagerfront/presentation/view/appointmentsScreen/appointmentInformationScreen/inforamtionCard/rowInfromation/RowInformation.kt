@@ -36,7 +36,8 @@ fun RowInformation(info: RowInformationData) {
                 modifier = Modifier.size(17.5.dp)
             )
         }
-        Column{
+        Column(
+        ) {
             Text(
                 text = info.title,
                 style = TextStyle(
@@ -44,13 +45,7 @@ fun RowInformation(info: RowInformationData) {
                     color = GrayText
                 )
             )
-            Text(
-                text = info.text,
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    color = Gray900
-                )
-            )
+            info.text()
         }
     }
 }

@@ -10,20 +10,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.clinicmanagerfront.R
+import com.example.clinicmanagerfront.data.model.enums.RoleEnum
 import com.example.clinicmanagerfront.ui.theme.*
 
 @Composable
 fun FastActions(
+    role: RoleEnum,
     onOpenForm: () -> Unit,
     onOpenPatients: () -> Unit,
     onOpenDoctors: () -> Unit
 ){
-    val actions = listOf(
+    val actions = mutableListOf(
         ActionCard(stringResource(id = R.string.appointment), Chart1,ChartBackground1, Icons.Outlined.Add, onOpenForm),
-        ActionCard(stringResource(id = R.string.patients), Chart2, ChartBackground2, Icons.Outlined.PersonOutline, onOpenPatients),
-        ActionCard(stringResource(id = R.string.doctors), Chart3, ChartBackground3, Icons.Outlined.PersonOutline, onOpenDoctors),
+        ActionCard(stringResource(id = R.string.doctors), Chart3, ChartBackground3, Icons.Outlined.PersonOutline, onOpenDoctors)
 //        ActionCard(stringResource(id = R.string.graph), Chart4, ChartBackground4, Icons.Outlined.InsertChart, {})
     )
+    if (role != RoleEnum.PATIENT) {
+        actions.add(ActionCard(stringResource(id = R.string.patients), Chart2, ChartBackground2, Icons.Outlined.PersonOutline, onOpenPatients))
+    }
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(10.5.dp)

@@ -37,5 +37,11 @@ enum class StatusEnum(
         ru = "Отменено",
         bgColor = StatusCancelledContainer,
         textColor = StatusCancelledText
-    )
+    );
+
+    companion object {
+        fun fromRu(ru: String): StatusEnum? {
+            return entries.find { it.ru.equals(ru, ignoreCase = true) }
+        }
+    }
 }

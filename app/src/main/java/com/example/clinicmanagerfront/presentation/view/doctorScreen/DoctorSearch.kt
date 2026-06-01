@@ -8,14 +8,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.clinicmanagerfront.R
+import com.example.clinicmanagerfront.presentation.view.doctorScreen.uiState.DoctorsUiState
 import com.example.clinicmanagerfront.ui.theme.Card
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DoctorSearch(
+    uiState: DoctorsUiState,
     onQueryChange: (String) -> Unit
 ) {
-    var query by remember { mutableStateOf("") }
+    var query by remember { mutableStateOf(uiState.searchText) }
     var active by remember { mutableStateOf(false) }
 
     DockedSearchBar(
@@ -27,6 +29,7 @@ fun DoctorSearch(
         ),
         inputField = {
             SearchBarDefaults.InputField(
+                modifier = Modifier.fillMaxWidth(),
                 query = query,
                 onQueryChange = {
                     query = it

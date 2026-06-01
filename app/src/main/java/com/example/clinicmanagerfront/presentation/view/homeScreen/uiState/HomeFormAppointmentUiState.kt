@@ -7,6 +7,7 @@ data class HomeFormAppointmentUiState(
     val patients: List<PatientShortInformationModel>? = null,
     val doctors: List<DoctorShortInformationModel>? = null,
     val isLoading: Boolean = false,
+    val error: String? = null,
 
     val selectedPatient: PatientShortInformationModel? = null,
     val selectedDoctor: DoctorShortInformationModel? = null,

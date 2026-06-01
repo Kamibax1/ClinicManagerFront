@@ -10,9 +10,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun BlockSortButtons(
     titles: List<String>,
-    onSortClick: (String) -> Unit
+    selectedIndex: Int,
+    onSortClick: (String, Int) -> Unit
 ) {
-    var selectedIndex by remember { mutableIntStateOf(-1) }
     val horizontalScroll = rememberScrollState()
     Row(
         modifier = Modifier
@@ -24,8 +24,7 @@ fun BlockSortButtons(
             text = "Все",
             isSelected = -1 == selectedIndex,
             onSelect = {
-                selectedIndex = -1
-                onSortClick("Все")
+                onSortClick("Все", -1)
             }
         )
         titles.forEachIndexed { index, title ->
@@ -33,8 +32,7 @@ fun BlockSortButtons(
                 text = title,
                 isSelected = index == selectedIndex,
                 onSelect = {
-                    selectedIndex = index
-                    onSortClick(title)
+                    onSortClick(title, index)
                 }
             )
         }

@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,21 +28,15 @@ fun CardStats(cardData: CardData, modifier: Modifier) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = cardData.count.toString(),
-            style = TextStyle(
-                fontFamily = FontFamily.SansSerif,
-                fontSize = 24.sp,
-                color = BlueText
-            )
-        )
+        cardData.count()
         Text(
             text = cardData.title,
             style = TextStyle(
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 12.sp,
                 color = Gray600
-            )
+            ),
+            textAlign = TextAlign.Center
         )
     }
 }

@@ -8,6 +8,12 @@ import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
 
+val AuthTitleTextStyle = TextStyle(
+    fontFamily = FontFamily.SansSerif,
+    color = Gray900,
+    fontSize = 25.sp
+)
+
 val StatsTextStyle = TextStyle(
     fontFamily = FontFamily.SansSerif,
     color = Card

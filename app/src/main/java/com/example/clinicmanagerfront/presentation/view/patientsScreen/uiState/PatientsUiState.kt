@@ -6,6 +6,7 @@ import com.example.clinicmanagerfront.presentation.view.patientsScreen.patientCa
 data class PatientsUiState(
     val patients: List<PatientShortInformationModel> = emptyList(),
     val cards: List<PatientDataCard>? = null,
+    val searchText: String = "",
     val isLoading: Boolean = false,
     val error: String? = null
 )

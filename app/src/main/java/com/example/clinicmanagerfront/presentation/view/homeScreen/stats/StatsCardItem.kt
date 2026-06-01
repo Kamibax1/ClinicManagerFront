@@ -12,7 +12,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.clinicmanagerfront.ui.theme.*
 @Composable
-fun StatsCardItem(card: StatsCard, modifier: Modifier = Modifier) {
+fun StatsCardItem(
+    card: StatsCard,
+    modifier: Modifier = Modifier
+) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
@@ -43,12 +46,7 @@ fun StatsCardItem(card: StatsCard, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(10.5.dp))
 
-            Text(
-                text = card.count.toString(),
-                style = StatsTextStyle,
-                fontSize = 21.sp,
-                color = Color.Black
-            )
+            card.count()
 
             Spacer(modifier = Modifier.height(3.5.dp))
 

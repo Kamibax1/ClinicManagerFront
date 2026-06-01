@@ -5,8 +5,12 @@ import com.example.clinicmanagerfront.presentation.view.doctorScreen.doctorCard.
 
 data class DoctorsUiState(
     val doctors: List<DoctorShortInformationModel> = emptyList(),
+    val filteredDoctors: List<DoctorShortInformationModel> = emptyList(),
     val cards: List<DoctorDataCard>? = null,
+    val filteredCards: List<DoctorDataCard>? = null,
     val specializations: List<String> = emptyList(),
+    val selectedSpecializationIndex: Int = -1,
+    val searchText: String = "",
     val isLoading: Boolean = false,
     val error: String? = null
 )

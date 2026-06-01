@@ -10,11 +10,15 @@ sealed class Screen (
     val title: String,
     val icon: ImageVector
 ) {
-    object Main : Screen("main_screen", "Главный экран", Icons.Default.Home)
+    object Home : Screen("home_screen", "Главный экран", Icons.Default.Home)
+    object SignIn : Screen("sign_in_screen", "Вход", Icons.Default.AppRegistration)
+    object SignUp : Screen("sign_up_screen", "Регистрация", Icons.Default.AppRegistration)
     object Appointments : Screen("appointments_screen", "Записи", Icons.Default.CalendarToday)
     object Profile : Screen("profile_screen", "Профиль", Icons.Default.Person)
     object Patients : Screen("patients_screen", "Пациенты", Icons.Default.Person)
     object Doctors : Screen("doctors_screen", "Врачи", Icons.Default.Person)
+    object AdminPanel : Screen("admin_panel_screen", "Админ Панель", Icons.Default.AdminPanelSettings)
+    object Test : Screen("test_screen", "Test", Icons.Default.Person)
     object AppointmentInformation : Screen("appointment_information_screen/{appointmentId}", "Информация о записи", Icons.Default.Description) {
         fun createRoute(appointmentId: Long) = "appointment_information_screen/$appointmentId"
 

@@ -2,9 +2,10 @@
     <string name="app_name">Clinic Manager</string>
     <string name="search_patient">Поиск пациентов</string>
     <string name="search_doctor">Поиск врачей</string>
+    <string name="search_user">Поиск пользователей</string>
     <string name="search_appointment">Поиск записей</string>
     <string name="welcome">Добро пожаловать</string>
-    <string name="today_day">Сегодняшний день</string>
+    <string name="today">Сегодня</string>
     <string name="patients">Пациенты</string>
     <string name="appointment_today">Записи сегодня</string>
     <string name="doctors">Врачи</string>
@@ -13,4 +14,8 @@
     <string name="appointment">Запись</string>
     <string name="graph">График</string>
     <string name="appointment_title_screen">Записи</string>
+    <string name="auth_sign_in">Вход</string>
+    <string name="auth_sign_up">Регистрация</string>
+    <string name="auth_enter_username">Введите имя пользователя</string>
+    <string name="auth_enter_password">Введите пароль</string>
 </resources>

@@ -3,7 +3,6 @@ package com.example.clinicmanagerfront.data.model
 import com.google.gson.annotations.SerializedName
 
 data class CreateAppointmentModel(
-
     @SerializedName("date")
     val date: String,
 

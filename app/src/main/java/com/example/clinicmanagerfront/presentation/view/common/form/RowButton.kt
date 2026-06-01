@@ -1,9 +1,11 @@
-package com.example.clinicmanagerfront.presentation.view.homeScreen.homeAddAppointmentForm.common
+package com.example.clinicmanagerfront.presentation.view.common.form
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.clinicmanagerfront.presentation.view.homeScreen.homeAddAppointmentForm.common.ButtonForm
+import com.example.clinicmanagerfront.presentation.view.homeScreen.homeAddAppointmentForm.common.ButtonFormData
 import com.example.clinicmanagerfront.ui.theme.*
 
 @Composable

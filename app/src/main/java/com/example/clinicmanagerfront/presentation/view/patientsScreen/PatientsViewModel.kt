@@ -11,9 +11,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.time.LocalDate
 import java.time.Period
 import javax.inject.Inject
+import kotlin.collections.emptyList
 
 @HiltViewModel
 class PatientsViewModel @Inject constructor(
@@ -33,11 +35,14 @@ class PatientsViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
-                val patients = apiService.getAllPatientsShortInfo()
+                val patients = try {
+                    apiService.getAllPatientsShortInfo()
+                } catch (e: HttpException) {
+                    if (e.code() == 404) emptyList() else throw e
+                }
                 val cards = patients.map { patient ->
                     mapToCard(patient)
                 }
-
                 _uiState.update { it.copy(cards = cards, isLoading = false) }
             } catch (e: Exception) {
                 _uiState.update { it.copy(isLoading = false, error = e.message) }
@@ -48,7 +53,6 @@ class PatientsViewModel @Inject constructor(
     fun mapToCard(patient: PatientShortInformationModel) : PatientDataCard {
         val fullName = "${patient.lastName} ${patient.firstName} ${patient.middleName}"
         val age = Period.between(LocalDate.parse(patient.dateOfBirth), LocalDate.now()).years
-
         return PatientDataCard(
             fullName = fullName,
             age = age,
@@ -56,20 +60,25 @@ class PatientsViewModel @Inject constructor(
         )
     }
 
-    fun searchPatients(partFullName: String) {
+    fun searchPatients(partName: String) {
+        _uiState.update { it.copy(searchText = partName) }
         searchJob?.cancel()
 
-        if (partFullName.isBlank()) {
+        if (partName.isBlank()) {
             loadPatients()
             return
         }
 
         searchJob = viewModelScope.launch {
-            delay(500)
+            delay(1000)
             _uiState.update { it.copy(isLoading = true) }
 
             try {
-                val patients = apiService.getAllPatientsShortInfoByName(partFullName)
+                val patients = try {
+                    apiService.getAllPatientsShortInfoByName(partName)
+                } catch (e: HttpException) {
+                    if (e.code() == 404) emptyList() else throw e
+                }
                 val cards = patients.map { mapToCard(it) }
 
                 _uiState.update {
