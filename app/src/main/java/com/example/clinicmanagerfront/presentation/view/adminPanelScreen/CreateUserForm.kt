@@ -36,7 +36,7 @@ fun CreateUserForm(
         ) {
             HeaderForm(
                 text = "Новый пользователь",
-                onDismiss = {}
+                onDismiss = onDismiss
             )
             Spacer(modifier = Modifier.size(16.dp))
             when {

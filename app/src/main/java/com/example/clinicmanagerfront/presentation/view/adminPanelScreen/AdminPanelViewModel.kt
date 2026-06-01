@@ -109,7 +109,7 @@ class AdminPanelViewModel @Inject constructor(
     }
 
     fun updateAddUserFormActive() {
-        _uiState.update { it.copy(showAddUserForm = !it.showFilterMenu) }
+        _uiState.update { it.copy(showAddUserForm = !it.showAddUserForm) }
     }
 
     fun searchUsers(partUsername: String) {

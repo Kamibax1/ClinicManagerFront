@@ -15,7 +15,6 @@ import com.example.clinicmanagerfront.presentation.view.doctorScreen.DoctorsScre
 import com.example.clinicmanagerfront.presentation.view.homeScreen.HomeScreen
 import com.example.clinicmanagerfront.presentation.view.patientsScreen.PatientsScreen
 import com.example.clinicmanagerfront.presentation.view.profileScreen.ProfileScreen
-import com.example.clinicmanagerfront.presentation.view.testScreen.TestScreen
 
 @Composable
 fun Navigation(
@@ -33,9 +32,6 @@ fun Navigation(
         }
         composable(Screen.AdminPanel.route) {
             AdminPanelScreen()
-        }
-        composable(Screen.Test.route) {
-            TestScreen()
         }
         composable(Screen.Home.route) {
             HomeScreen(navController)
